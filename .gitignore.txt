@@ -1,1 +1,2 @@
-certificados_generados/*.pdf
+certificados generados\*.pdf
+

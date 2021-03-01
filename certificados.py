@@ -9,10 +9,6 @@ def generate_certificate(name, nombre_archivo):
     file = open("certificado_modelo.svg", "r", encoding="utf-8")
     content = file.read()
 
-   #line = contenido_a_modificar #"""style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:'Playfair Display';-inkscape-font-specification:'Playfair Display Italic';text-align:center;baseline-shift:baseline;text-anchor:middle">%s</flowPara></flowRoot><image"""
-
-    #content[linea] = line % name
-
     file = open("certificados generados/%s.svg" % name, "w+", encoding="utf-8")
 
     file.write(content % name)
@@ -26,30 +22,25 @@ def generate_certificate(name, nombre_archivo):
     os.remove("certificados generados/%s.svg" % name)
 
 
-#print(content)
 
-primera_vez = input("Regenerar el svg? (y/n)")
+# Descomentar si se desea generar un .svg en base al modelo_certificado.pdf
+#
+#primera_vez = input("Regenerar el svg? (y/n)")
+#if primera_vez=="y":
+#    x = Popen(["C:\Program Files\Inkscape\inkscape","-z", "-f", "certificado_modelo.pdf","-l","certificado_modelo.svg"])
+#    x.communicate()
 
-if primera_vez=="y":
-    x = Popen(["C:\Program Files\Inkscape\inkscape","-z", "-f", "certificado_modelo.pdf","-l","certificado_modelo.svg"])
-    x.communicate()
-
-#contenido_a_modificar = input("Ingrese contenido, con un %s en el nombre del participante:")
-
-input("Modificar el svg y tocar enter....")
 
 file = pd.read_excel("certificados.xlsx")
 
 content = file.to_dict("records")
 
 for file in content:
-    print(file)
     nombre = file["Nombre Certificado"]
     nombre_archivo = file["Nombre Archivo"]
     print("Generando %s" % nombre)
+    print(file)
     generate_certificate(nombre, nombre_archivo)
-
-filename = "certificado_modelo.svg"
 
 
 
