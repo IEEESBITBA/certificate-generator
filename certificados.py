@@ -7,13 +7,14 @@ import os
 from pathlib import Path
 
 
-def generate_certificate(name, nombre_archivo):
+def generate_certificate(name, nombre_archivo, font_size):
+    print("nombre: ", name,'\t Nombre archivo:' ,nombre_archivo)
+    
     file = open("certificado_modelo.svg", "r", encoding="utf-8")
     content = file.read()
-
     file = open("certificados generados/%s.svg" % name, "w+", encoding="utf-8")
 
-    file.write(content % name)
+    file.write(content.replace("%d", str(font_size)).replace("%s", str(name)))
     file.close()
 
     x = Popen(['C:\Program Files\Inkscape\inkscape', "certificados generados/%s.svg" % name, \
@@ -49,9 +50,8 @@ for file in content:
         print("El archivo de", nombre, "ya habia sido generado")
 
     else: 
-        print("Generando %s" % nombre)
-        print(file, "\n")
-        generate_certificate(nombre, nombre_archivo)
-
+        font_size = 70 - (len(str(nombre))-25)*1.55
+        font_size = min (font_size, 70)
+        generate_certificate(nombre, nombre_archivo, font_size)
 print("Certificados Generados !!!")
 
